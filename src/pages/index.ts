@@ -1,3 +1,5 @@
 export { default as ContactsPage } from './ContactsPage'
 export { default as ContactDetailPage } from './ContactDetailPage'
 export { default as NotFoundPage } from './NotFoundPage'
+export { LoginPage } from './LoginPage'
+export { SignupPage } from './SignupPage'

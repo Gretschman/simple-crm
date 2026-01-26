@@ -11,9 +11,24 @@ A modern, full-stack Contact Relationship Management (CRM) application built wit
 
 ## Features
 
+🔐 **Authentication & Security**
+- Secure email/password authentication with Supabase Auth
+- Protected routes and session management
+- Row Level Security (RLS) for data isolation
+- Users can only access their own contacts
+- JWT-based authentication with automatic token refresh
+
 ✨ **Full CRUD Operations**
 - Create, read, update, and delete contacts
 - Comprehensive contact information (name, email, phone, company, address, notes, tags)
+- User-specific data isolation
+
+📎 **File Attachments**
+- Upload files to contacts (documents, images, etc.)
+- Secure file storage with Supabase Storage
+- Max 5MB per file
+- Download and delete attachments
+- Files organized by user and contact
 
 🔍 **Search & Filter**
 - Real-time search across name, email, and company (300ms debounce)
@@ -34,10 +49,12 @@ A modern, full-stack Contact Relationship Management (CRM) application built wit
 - Modal dialogs for actions
 
 🔒 **Database & Backend**
-- Supabase PostgreSQL database
+- Supabase as complete Backend-as-a-Service
+- PostgreSQL database with auto-generated REST API
 - Row Level Security (RLS) policies
 - Real-time updates with React Query
 - Optimized database queries with indexes
+- Secure file storage with bucket policies
 
 ---
 
@@ -56,10 +73,13 @@ A modern, full-stack Contact Relationship Management (CRM) application built wit
 - **React Hot Toast** - Toast notifications
 
 ### Backend
-- **Supabase** - Backend as a Service (BaaS)
+- **Supabase** - Complete Backend as a Service (BaaS)
   - PostgreSQL database
-  - REST API
+  - Auto-generated REST API (PostgREST)
+  - Supabase Auth (email/password authentication)
+  - Supabase Storage (file attachments)
   - Row Level Security (RLS)
+  - JWT token management
 
 ### Deployment
 - **Vercel** - Frontend hosting and deployment
@@ -102,15 +122,28 @@ A modern, full-stack Contact Relationship Management (CRM) application built wit
 
 4. **Set up the database**:
 
-   Open your Supabase project dashboard and run the SQL migrations:
+   Open your Supabase project dashboard and run the SQL migrations in order:
 
    - Go to **SQL Editor** → **New Query**
-   - Copy and run `supabase/migrations/001_create_contacts_table.sql`
-   - Then run `supabase/seed.sql` to add sample contacts
+   - Run `supabase/migrations/001_create_contacts_table.sql` (creates contacts table)
+   - Run `supabase/migrations/002_add_user_authentication.sql` (adds auth and RLS)
+   - Run `supabase/migrations/003_add_file_attachments.sql` (adds file support)
 
    See `supabase/README.md` for detailed instructions.
 
-5. **Start the development server**:
+5. **Set up storage bucket**:
+
+   - Go to **Storage** in Supabase Dashboard
+   - Create a new bucket named `contact-files` (private)
+   - Configure storage policies for user-specific file access
+
+   See `supabase/README.md` for detailed policy configuration.
+
+6. **Create a user account**:
+
+   Once the app is running, click "Sign up" to create your account. You'll need to verify your email (check Supabase Auth settings if email confirmation is required).
+
+7. **Start the development server**:
    ```bash
    npm run dev
    ```
@@ -146,20 +179,24 @@ npm run lint
 simple-crm/
 ├── src/
 │   ├── components/
-│   │   ├── contacts/      # Contact-specific components
+│   │   ├── auth/          # Authentication components (ProtectedRoute)
+│   │   ├── contacts/      # Contact-specific components + FileUpload
 │   │   ├── layout/        # Layout components (Header, MainLayout)
 │   │   └── ui/            # Reusable UI components
-│   ├── hooks/             # React Query hooks
+│   ├── hooks/             # React Query hooks + useAuth
 │   ├── lib/               # Utilities and configurations
 │   │   └── validations/   # Zod schemas
-│   ├── pages/             # Route pages
+│   ├── pages/             # Route pages (Contacts, Login, Signup)
 │   ├── services/          # API service layer
 │   ├── types/             # TypeScript interfaces
 │   ├── App.tsx            # Main app component with routing
 │   └── main.tsx           # Entry point
 ├── supabase/
-│   ├── migrations/        # Database migrations
-│   └── seed.sql           # Sample data
+│   ├── migrations/        # Database migrations (3 files)
+│   │   ├── 001_create_contacts_table.sql
+│   │   ├── 002_add_user_authentication.sql
+│   │   └── 003_add_file_attachments.sql
+│   └── README.md          # Database setup guide
 └── public/                # Static assets
 ```
 
@@ -172,6 +209,7 @@ simple-crm/
 | Column       | Type                     | Constraints           |
 |--------------|--------------------------|-----------------------|
 | id           | UUID                     | PRIMARY KEY           |
+| user_id      | UUID                     | FK → auth.users       |
 | first_name   | VARCHAR(100)             | NOT NULL              |
 | last_name    | VARCHAR(100)             | NOT NULL              |
 | email        | VARCHAR(255)             | UNIQUE, NOT NULL      |
@@ -185,6 +223,7 @@ simple-crm/
 | country      | VARCHAR(100)             | -                     |
 | notes        | TEXT                     | -                     |
 | tags         | TEXT[]                   | -                     |
+| attachments  | JSONB                    | DEFAULT '[]'::jsonb   |
 | created_at   | TIMESTAMP WITH TIMEZONE  | DEFAULT NOW()         |
 | updated_at   | TIMESTAMP WITH TIMEZONE  | DEFAULT NOW()         |
 
@@ -193,6 +232,8 @@ simple-crm/
 - `idx_contacts_last_name` - Name sorting
 - `idx_contacts_company` - Company filtering
 - `idx_contacts_created_at` - Date sorting
+- `idx_contacts_user_id` - User ownership filtering
+- `idx_contacts_attachments` - GIN index for JSONB queries
 
 ---
 
@@ -238,16 +279,39 @@ For WSL2 users or remote access, see `ACCESS_FROM_MOBILE.md` for tunneling solut
 
 ---
 
-## Security Notes
+## Security
 
-⚠️ **Current Configuration**: This MVP uses public access (no authentication) via Supabase RLS policies set to `true`. This is **intentional for development** but should not be used in production.
+✅ **Production-Ready Security**
 
-### For Production:
-1. Enable Supabase Authentication
-2. Update RLS policies to check `auth.uid()`
-3. Add user ownership to contacts table
-4. Implement proper access controls
-5. Consider rate limiting
+This application implements comprehensive security measures:
+
+### Authentication
+- ✅ Supabase Authentication with email/password
+- ✅ JWT token-based session management
+- ✅ Protected routes requiring authentication
+- ✅ Automatic token refresh
+- ✅ Secure logout functionality
+
+### Authorization
+- ✅ Row Level Security (RLS) policies on all tables
+- ✅ User-specific data isolation
+- ✅ Users can only access their own contacts
+- ✅ Storage policies restrict file access to owners
+- ✅ Database-level authorization (cannot be bypassed)
+
+### Data Protection
+- ✅ HTTPS-only in production (Vercel)
+- ✅ Environment variables for sensitive credentials
+- ✅ Input validation with Zod schemas
+- ✅ SQL injection protection (Supabase client)
+- ✅ XSS protection (React auto-escaping)
+
+### Future Enhancements
+- [ ] Email verification required for signup
+- [ ] Two-factor authentication (2FA)
+- [ ] Rate limiting on API calls
+- [ ] Audit logging for compliance
+- [ ] Password reset functionality
 
 ---
 

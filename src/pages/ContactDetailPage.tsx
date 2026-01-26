@@ -13,16 +13,21 @@ import {
 } from 'lucide-react'
 import { Button, Card, Spinner } from '@/components/ui'
 import { ContactFormModal, DeleteConfirmationModal } from '@/components/contacts'
-import { useContact } from '@/hooks/useContacts'
+import { FileUpload } from '@/components/contacts/FileUpload'
+import { useContact, useUpdateContact } from '@/hooks/useContacts'
+import { useAuth } from '@/hooks/useAuth'
 import { formatDate, formatPhoneNumber } from '@/lib/utils'
+import { FileAttachment } from '@/types'
 
 export default function ContactDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { user } = useAuth()
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
   const { data: contact, isLoading, isError } = useContact(id!)
+  const updateContact = useUpdateContact()
 
   if (isLoading) {
     return (
@@ -52,6 +57,14 @@ export default function ContactDetailPage() {
 
   const handleDeleteSuccess = () => {
     navigate('/')
+  }
+
+  const handleAttachmentsUpdate = (newAttachments: FileAttachment[]) => {
+    if (!contact) return
+    updateContact.mutate({
+      id: contact.id,
+      input: { attachments: newAttachments },
+    })
   }
 
   return (
@@ -197,6 +210,19 @@ export default function ContactDetailPage() {
           </div>
         </Card>
       </div>
+
+      {/* File Attachments Card */}
+      {user && (
+        <Card>
+          <h2 className="mb-4 text-lg font-semibold text-gray-900">File Attachments</h2>
+          <FileUpload
+            contactId={contact.id}
+            userId={user.id}
+            attachments={contact.attachments || []}
+            onUploadComplete={handleAttachmentsUpdate}
+          />
+        </Card>
+      )}
 
       {/* Edit Modal */}
       <ContactFormModal
