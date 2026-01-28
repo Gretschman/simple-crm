@@ -7,57 +7,57 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Warm, comforting color palette for reduced eye fatigue
+        // Sophisticated warm sage/olive palette for reduced eye fatigue
         primary: {
-          50: '#fef8f0',  // Very light warm cream
-          100: '#fdefd9', // Light warm beige
-          200: '#fbddb3', // Soft warm tan
-          300: '#f7c68c', // Light amber
-          400: '#f3a866', // Warm orange
-          500: '#e88b42', // Medium warm amber (main brand color)
-          600: '#d87228', // Rich amber
-          700: '#b85e1d', // Deep warm orange
-          800: '#8f4a18', // Dark warm brown
-          900: '#663715', // Very dark warm brown
-          950: '#3d2310', // Almost black with warm undertone
+          50: '#f6f8f3',  // Very light sage
+          100: '#e8ede2', // Light sage
+          200: '#d4ddc9', // Soft sage
+          300: '#b8c7a5', // Medium light sage
+          400: '#9ab080', // Warm sage
+          500: '#7a9860', // Main sage green (brand color)
+          600: '#5f7a48', // Deep sage
+          700: '#4a5f38', // Dark olive
+          800: '#3a4a2d', // Very dark olive
+          900: '#2d3823', // Almost black olive
+          950: '#1c2316', // Near black with green undertone
         },
         warm: {
-          // Background neutrals with warm undertones
-          50: '#fafaf8',  // Off-white with warmth
-          100: '#f5f4f0', // Very light warm gray
-          200: '#eae7df', // Light warm gray
-          300: '#dad5c8', // Medium warm gray
-          400: '#c5bead', // Warm taupe
-          500: '#a89985', // Medium warm brown-gray
-          600: '#8a7a68', // Warm medium brown
-          700: '#6b5e50', // Dark warm brown
-          800: '#4d453d', // Very dark warm brown
-          900: '#332e29', // Near black with warmth
+          // Neutral backgrounds with subtle warm undertones
+          50: '#fafaf9',  // Off-white
+          100: '#f5f5f3', // Very light warm gray
+          200: '#e8e7e3', // Light warm gray
+          300: '#d4d2cb', // Medium warm gray
+          400: '#b8b5ac', // Warm taupe
+          500: '#9a9689', // Medium gray-brown
+          600: '#7a7669', // Warm medium gray
+          700: '#5f5c52', // Dark warm gray
+          800: '#46443d', // Very dark warm gray
+          900: '#2f2e29', // Near black
         },
         accent: {
-          // Soft terracotta/coral accent
-          50: '#fef6f4',
-          100: '#fde9e3',
-          200: '#fbd0c5',
-          300: '#f7aca0',
-          400: '#f28974',
-          500: '#e36b51', // Warm terracotta
-          600: '#c85437',
-          700: '#a4402b',
-          800: '#7f3624',
-          900: '#5c2b1d',
+          // Soft teal accent for contrast with sage
+          50: '#f0faf8',
+          100: '#d6f2ed',
+          200: '#ade5db',
+          300: '#7dd3c5',
+          400: '#4fb9ac',
+          500: '#329e92', // Soft teal (main accent)
+          600: '#287d74',
+          700: '#20635d',
+          800: '#1a4d49',
+          900: '#153a37',
         },
       },
       fontFamily: {
         sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
       boxShadow: {
-        // Softer, warmer shadows
-        'sm': '0 1px 2px 0 rgba(139, 92, 46, 0.05)',
-        'DEFAULT': '0 1px 3px 0 rgba(139, 92, 46, 0.1), 0 1px 2px -1px rgba(139, 92, 46, 0.1)',
-        'md': '0 4px 6px -1px rgba(139, 92, 46, 0.1), 0 2px 4px -2px rgba(139, 92, 46, 0.1)',
-        'lg': '0 10px 15px -3px rgba(139, 92, 46, 0.1), 0 4px 6px -4px rgba(139, 92, 46, 0.1)',
-        'xl': '0 20px 25px -5px rgba(139, 92, 46, 0.1), 0 8px 10px -6px rgba(139, 92, 46, 0.1)',
+        // Softer, more neutral shadows
+        'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        'DEFAULT': '0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06)',
+        'md': '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06)',
+        'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.06)',
+        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.06)',
       },
       borderRadius: {
         // iOS-style rounded corners
