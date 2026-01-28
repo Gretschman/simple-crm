@@ -29,15 +29,12 @@ export default function DeleteConfirmationModal({
   const fullName = `${contact.first_name} ${contact.last_name}`
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Delete Contact">
-      <div className="space-y-4">
-        <p className="text-sm text-gray-600">
-          Are you sure you want to delete{' '}
-          <span className="font-semibold text-gray-900">{fullName}</span>? This action cannot be
-          undone.
-        </p>
-
-        <div className="flex justify-end gap-3 pt-2">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Delete Contact"
+      footer={
+        <div className="flex justify-end gap-3">
           <Button
             variant="secondary"
             onClick={onClose}
@@ -54,7 +51,13 @@ export default function DeleteConfirmationModal({
             Delete Contact
           </Button>
         </div>
-      </div>
+      }
+    >
+      <p className="text-sm text-gray-600">
+        Are you sure you want to delete{' '}
+        <span className="font-semibold text-gray-900">{fullName}</span>? This action cannot be
+        undone.
+      </p>
     </Modal>
   )
 }

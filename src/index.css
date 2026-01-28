@@ -3,7 +3,30 @@
 @tailwind utilities;
 
 @layer base {
-  body {
+  :root {
+    /* Fix for iOS viewport height with keyboard */
+    --vh: 1vh;
+  }
+
+  html, body {
     @apply bg-gray-50 text-gray-900 antialiased;
+    /* Prevent bounce scrolling on iOS */
+    overscroll-behavior: none;
+    /* Improve touch scrolling */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body {
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+  }
+
+  /* Prevent zoom on input focus on iOS */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="password"],
+  textarea {
+    font-size: 16px;
   }
 }

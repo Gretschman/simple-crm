@@ -9,6 +9,7 @@ interface ContactFormProps {
   onSubmit: (data: ContactFormData) => void
   onCancel: () => void
   isSubmitting?: boolean
+  renderActions?: (props: { onCancel: () => void; isSubmitting: boolean; isEdit: boolean }) => React.ReactNode
 }
 
 export default function ContactForm({
@@ -16,6 +17,7 @@ export default function ContactForm({
   onSubmit,
   onCancel,
   isSubmitting = false,
+  renderActions,
 }: ContactFormProps) {
   const {
     register,
@@ -26,8 +28,10 @@ export default function ContactForm({
     defaultValues: defaultValues || {},
   })
 
+  const isEdit = !!defaultValues?.email
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" id="contact-form">
       {/* Name Fields */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input
@@ -126,24 +130,26 @@ export default function ContactForm({
         rows={4}
       />
 
-      {/* Form Actions */}
-      <div className="flex justify-end gap-3 pt-6 pb-4">
-        <Button
-          type="button"
-          variant="secondary"
-          onClick={onCancel}
-          disabled={isSubmitting}
-        >
-          Cancel
-        </Button>
-        <Button
-          type="submit"
-          isLoading={isSubmitting}
-          disabled={isSubmitting}
-        >
-          {defaultValues ? 'Update Contact' : 'Create Contact'}
-        </Button>
-      </div>
+      {/* Form Actions - Only render if renderActions is not provided */}
+      {!renderActions && (
+        <div className="flex justify-end gap-3 pt-6 pb-4">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={onCancel}
+            disabled={isSubmitting}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            {isEdit ? 'Update Contact' : 'Create Contact'}
+          </Button>
+        </div>
+      )}
     </form>
   )
 }

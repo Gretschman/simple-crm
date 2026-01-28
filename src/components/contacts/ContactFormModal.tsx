@@ -1,4 +1,4 @@
-import { Modal } from '@/components/ui'
+import { Modal, Button } from '@/components/ui'
 import ContactForm from './ContactForm'
 import { useCreateContact, useUpdateContact } from '@/hooks/useContacts'
 import type { Contact } from '@/types'
@@ -62,12 +62,33 @@ export default function ContactFormModal({ isOpen, onClose, contact }: ContactFo
       onClose={onClose}
       title={isEditing ? 'Edit Contact' : 'Add New Contact'}
       className="max-w-2xl"
+      footer={
+        <div className="flex justify-end gap-3">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={onClose}
+            disabled={isSubmitting}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            form="contact-form"
+            isLoading={isSubmitting}
+            disabled={isSubmitting}
+          >
+            {isEditing ? 'Update Contact' : 'Create Contact'}
+          </Button>
+        </div>
+      }
     >
       <ContactForm
         defaultValues={formDefaultValues}
         onSubmit={handleSubmit}
         onCancel={onClose}
         isSubmitting={isSubmitting}
+        renderActions={() => null}
       />
     </Modal>
   )
