@@ -1,5 +1,8 @@
+export { default as DashboardPage } from './DashboardPage'
 export { default as ContactsPage } from './ContactsPage'
 export { default as ContactDetailPage } from './ContactDetailPage'
+export { default as CompaniesPage } from './CompaniesPage'
+export { default as TasksPage } from './TasksPage'
 export { default as NotFoundPage } from './NotFoundPage'
 export { LoginPage } from './LoginPage'
 export { SignupPage } from './SignupPage'

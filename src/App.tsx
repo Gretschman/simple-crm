@@ -3,7 +3,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'react-hot-toast'
 import { queryClient } from '@/lib/query-client'
 import { MainLayout } from '@/components/layout'
-import { ContactsPage, ContactDetailPage, NotFoundPage, LoginPage, SignupPage, ForgotPasswordPage, ResetPasswordPage } from '@/pages'
+import { DashboardPage, ContactsPage, ContactDetailPage, CompaniesPage, TasksPage, NotFoundPage, LoginPage, SignupPage, ForgotPasswordPage, ResetPasswordPage } from '@/pages'
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute'
 
 function App() {
@@ -18,6 +18,16 @@ function App() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
 
           {/* Protected routes */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <MainLayout>
+                  <DashboardPage />
+                </MainLayout>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/"
             element={
@@ -34,6 +44,26 @@ function App() {
               <ProtectedRoute>
                 <MainLayout>
                   <ContactDetailPage />
+                </MainLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/companies"
+            element={
+              <ProtectedRoute>
+                <MainLayout>
+                  <CompaniesPage />
+                </MainLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/tasks"
+            element={
+              <ProtectedRoute>
+                <MainLayout>
+                  <TasksPage />
                 </MainLayout>
               </ProtectedRoute>
             }
