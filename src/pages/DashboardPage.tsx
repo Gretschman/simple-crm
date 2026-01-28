@@ -15,8 +15,8 @@ export default function DashboardPage() {
       name: 'Total Contacts',
       value: contacts?.length || 0,
       icon: Users,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-100',
+      color: 'text-blue-700',
+      bgColor: 'bg-blue-200',
     },
     {
       name: 'Companies',
