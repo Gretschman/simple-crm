@@ -11,21 +11,37 @@
     --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
     --safe-area-inset-left: env(safe-area-inset-left, 0px);
     --safe-area-inset-right: env(safe-area-inset-right, 0px);
+
+    /* Warm color theme variables */
+    --color-bg-primary: #fafaf8;
+    --color-bg-secondary: #f5f4f0;
+    --color-bg-tertiary: #eae7df;
+    --color-text-primary: #332e29;
+    --color-text-secondary: #6b5e50;
+    --color-text-tertiary: #8a7a68;
+    --color-border: #dad5c8;
+    --color-border-light: #eae7df;
   }
 
   html, body {
-    @apply bg-gray-50 text-gray-900 antialiased;
+    @apply bg-warm-50 text-warm-900 antialiased;
     /* Prevent bounce scrolling on iOS */
     overscroll-behavior: none;
     /* Improve touch scrolling */
     -webkit-overflow-scrolling: touch;
     /* Support safe area for iPhone notch/home indicator */
     padding-top: env(safe-area-inset-top);
+    /* Better text rendering for long-term reading comfort */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     /* Prevent horizontal scroll on mobile */
     overflow-x: hidden;
+    /* Comfortable line height for readability */
+    line-height: 1.6;
   }
 
   /* Prevent zoom on input focus on iOS */
