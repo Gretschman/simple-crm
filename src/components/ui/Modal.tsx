@@ -22,7 +22,11 @@ export default function Modal({ isOpen, onClose, title, children, className }: M
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape)
-      document.body.style.overflow = 'hidden'
+      // Don't lock body scroll on mobile for better iOS compatibility
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      if (!isMobile) {
+        document.body.style.overflow = 'hidden'
+      }
     }
 
     return () => {
@@ -35,32 +39,40 @@ export default function Modal({ isOpen, onClose, title, children, className }: M
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 overflow-y-scroll"
+      style={{
+        WebkitOverflowScrolling: 'touch',
+        overscrollBehavior: 'contain'
+      }}
       onClick={onClose}
     >
-      <div
-        className={cn(
-          'relative w-full max-w-lg rounded-lg bg-white p-6 shadow-xl',
-          className
-        )}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Header */}
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={onClose}
-            className="h-8 w-8 p-0"
-            aria-label="Close modal"
-          >
-            <X className="h-5 w-5" />
-          </Button>
-        </div>
+      <div className="w-full min-h-screen flex items-start justify-center p-4 py-8">
+        <div
+          className={cn(
+            'relative w-full max-w-lg rounded-lg bg-white shadow-xl mb-20',
+            className
+          )}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between border-b border-gray-200 bg-white px-6 py-4 rounded-t-lg">
+            <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={onClose}
+              className="h-8 w-8 p-0"
+              aria-label="Close modal"
+            >
+              <X className="h-5 w-5" />
+            </Button>
+          </div>
 
-        {/* Content */}
-        <div>{children}</div>
+          {/* Content */}
+          <div className="px-6 py-4">
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   )
