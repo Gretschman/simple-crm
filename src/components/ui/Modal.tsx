@@ -57,13 +57,13 @@ export default function Modal({ isOpen, onClose, title, children, className, foo
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header - Fixed */}
-          <div className="flex-shrink-0 flex items-center justify-between border-b border-gray-200 bg-white px-4 sm:px-6 py-4 sm:rounded-t-lg">
+          <div className="flex-shrink-0 flex items-center justify-between border-b border-gray-200 bg-white px-4 sm:px-6 py-3 sm:py-4 sm:rounded-t-lg safe-area-top">
             <h2 className="text-lg sm:text-xl font-semibold text-gray-900">{title}</h2>
             <Button
               type="button"
               variant="ghost"
               onClick={onClose}
-              className="h-8 w-8 p-0 flex-shrink-0"
+              className="h-10 w-10 p-0 flex-shrink-0 -mr-2"
               aria-label="Close modal"
             >
               <X className="h-5 w-5" />
@@ -71,13 +71,24 @@ export default function Modal({ isOpen, onClose, title, children, className, foo
           </div>
 
           {/* Content - Scrollable */}
-          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4" style={{ WebkitOverflowScrolling: 'touch' }}>
+          <div
+            className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 pb-6"
+            style={{
+              WebkitOverflowScrolling: 'touch',
+              overscrollBehavior: 'contain'
+            }}
+          >
             {children}
           </div>
 
-          {/* Footer - Fixed (if provided) */}
+          {/* Footer - Fixed iOS-style bottom action bar */}
           {footer && (
-            <div className="flex-shrink-0 border-t border-gray-200 bg-white px-4 sm:px-6 py-4 sm:rounded-b-lg">
+            <div
+              className="flex-shrink-0 border-t border-gray-200 bg-white px-4 sm:px-6 py-3 sm:rounded-b-lg safe-area-bottom"
+              style={{
+                paddingBottom: 'max(12px, env(safe-area-inset-bottom))'
+              }}
+            >
               {footer}
             </div>
           )}

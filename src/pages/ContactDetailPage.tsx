@@ -68,12 +68,34 @@ export default function ContactDetailPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Back Button */}
-      <Button variant="ghost" onClick={() => navigate('/')}>
-        <ArrowLeft className="h-5 w-5" />
-        Back to Contacts
-      </Button>
+    <div className="space-y-4 sm:space-y-6">
+      {/* Mobile Header Bar */}
+      <div className="flex items-center justify-between gap-4 -mx-4 -mt-6 sm:mx-0 sm:mt-0 px-4 py-3 sm:p-0 bg-white sm:bg-transparent border-b sm:border-0 border-gray-200">
+        <Button
+          variant="ghost"
+          onClick={() => navigate('/')}
+          className="min-h-[44px] flex items-center gap-2 -ml-2"
+        >
+          <ArrowLeft className="h-5 w-5" />
+          <span className="sm:inline">Back</span>
+        </Button>
+        <div className="flex items-center gap-2 sm:hidden">
+          <Button
+            variant="ghost"
+            onClick={() => setIsEditModalOpen(true)}
+            className="min-h-[44px] min-w-[44px] p-2"
+          >
+            <Edit className="h-5 w-5" />
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={() => setIsDeleteModalOpen(true)}
+            className="min-h-[44px] min-w-[44px] p-2 text-red-600 hover:text-red-700"
+          >
+            <Trash2 className="h-5 w-5" />
+          </Button>
+        </div>
+      </div>
 
       {/* Header */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">

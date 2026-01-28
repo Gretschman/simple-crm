@@ -34,11 +34,12 @@ export default function DeleteConfirmationModal({
       onClose={onClose}
       title="Delete Contact"
       footer={
-        <div className="flex justify-end gap-3">
+        <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3 w-full">
           <Button
             variant="secondary"
             onClick={onClose}
             disabled={deleteMutation.isPending}
+            className="w-full sm:w-auto min-h-[48px] text-base"
           >
             Cancel
           </Button>
@@ -47,6 +48,7 @@ export default function DeleteConfirmationModal({
             onClick={handleDelete}
             isLoading={deleteMutation.isPending}
             disabled={deleteMutation.isPending}
+            className="w-full sm:w-auto min-h-[48px] text-base"
           >
             Delete Contact
           </Button>

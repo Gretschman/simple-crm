@@ -63,12 +63,13 @@ export default function ContactFormModal({ isOpen, onClose, contact }: ContactFo
       title={isEditing ? 'Edit Contact' : 'Add New Contact'}
       className="max-w-2xl"
       footer={
-        <div className="flex justify-end gap-3">
+        <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3 w-full">
           <Button
             type="button"
             variant="secondary"
             onClick={onClose}
             disabled={isSubmitting}
+            className="w-full sm:w-auto min-h-[48px] text-base"
           >
             Cancel
           </Button>
@@ -77,6 +78,7 @@ export default function ContactFormModal({ isOpen, onClose, contact }: ContactFo
             form="contact-form"
             isLoading={isSubmitting}
             disabled={isSubmitting}
+            className="w-full sm:w-auto min-h-[48px] text-base"
           >
             {isEditing ? 'Update Contact' : 'Create Contact'}
           </Button>
