@@ -5,12 +5,12 @@ import { cn } from '@/lib/utils'
 const navigation = [
   {
     name: 'Dashboard',
-    href: '/dashboard',
+    href: '/',
     icon: LayoutDashboard,
   },
   {
     name: 'Contacts',
-    href: '/',
+    href: '/contacts',
     icon: Users,
   },
   {
@@ -29,7 +29,7 @@ export default function Sidebar() {
   const location = useLocation()
 
   return (
-    <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 md:pt-16">
+    <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 md:pt-18">
       <div className="flex flex-col flex-grow border-r border-gray-200 bg-white overflow-y-auto">
         <nav className="flex-1 px-4 py-6 space-y-1">
           {navigation.map((item) => {

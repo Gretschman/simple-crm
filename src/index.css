@@ -12,19 +12,19 @@
     --safe-area-inset-left: env(safe-area-inset-left, 0px);
     --safe-area-inset-right: env(safe-area-inset-right, 0px);
 
-    /* Warm color theme variables */
-    --color-bg-primary: #fafaf8;
-    --color-bg-secondary: #f5f4f0;
-    --color-bg-tertiary: #eae7df;
-    --color-text-primary: #332e29;
-    --color-text-secondary: #6b5e50;
-    --color-text-tertiary: #8a7a68;
-    --color-border: #dad5c8;
-    --color-border-light: #eae7df;
+    /* Sky blue theme variables */
+    --color-bg-primary: #e0f2fe;
+    --color-bg-secondary: #bae6fd;
+    --color-bg-tertiary: #7dd3fc;
+    --color-text-primary: #171717;
+    --color-text-secondary: #525252;
+    --color-text-tertiary: #737373;
+    --color-border: #d4d4d4;
+    --color-border-light: #e5e5e5;
   }
 
   html, body {
-    @apply bg-warm-50 text-warm-900 antialiased;
+    @apply bg-primary-100 text-neutral-900 antialiased;
     /* Prevent bounce scrolling on iOS */
     overscroll-behavior: none;
     /* Improve touch scrolling */

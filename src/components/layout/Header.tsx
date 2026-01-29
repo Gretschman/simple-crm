@@ -22,36 +22,37 @@ export default function Header() {
   }
 
   return (
-    <header className="border-b border-warm-200 bg-white shadow-sm">
+    <header className="border-b border-neutral-200 bg-white shadow-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-18 items-center justify-between">
           {/* Logo and Brand */}
-          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity group">
-            <CapyCrocLogo className="h-12 w-12 group-hover:scale-105 transition-transform" />
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity group">
+            <CapyCrocLogo className="h-10 w-10 sm:h-12 sm:w-12 group-hover:scale-105 transition-transform" />
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-warm-800">Simple CRM</span>
-              <span className="text-xs text-warm-500 -mt-1">Riding the wave of productivity</span>
+              <span className="text-base sm:text-xl font-bold text-neutral-800">Simple CRM</span>
+              <span className="hidden sm:inline text-xs text-neutral-500 -mt-1">Riding the wave of productivity</span>
             </div>
           </Link>
 
           {/* Navigation */}
-          <nav className="flex items-center gap-6">
+          <nav className="flex items-center gap-2 sm:gap-6">
             <Link
-              to="/"
-              className="text-sm font-medium text-warm-700 transition-colors hover:text-primary-600"
+              to="/contacts"
+              className="text-xs sm:text-sm font-medium text-neutral-700 transition-colors hover:text-primary-600"
             >
               Contacts
             </Link>
             {user && (
-              <div className="flex items-center gap-4">
-                <span className="text-sm text-warm-600">{user.email}</span>
+              <div className="flex items-center gap-2 sm:gap-4">
+                <span className="hidden md:inline text-sm text-neutral-600">{user.email}</span>
                 <Button
                   variant="ghost"
                   onClick={handleLogout}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 sm:px-3"
                 >
-                  <LogOut className="h-4 w-4" />
-                  Logout
+                  <LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="hidden sm:inline">Logout</span>
+                  <span className="sm:hidden">Exit</span>
                 </Button>
               </div>
             )}

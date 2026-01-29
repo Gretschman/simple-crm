@@ -19,7 +19,7 @@ function App() {
 
           {/* Protected routes */}
           <Route
-            path="/dashboard"
+            path="/"
             element={
               <ProtectedRoute>
                 <MainLayout>
@@ -29,7 +29,7 @@ function App() {
             }
           />
           <Route
-            path="/"
+            path="/contacts"
             element={
               <ProtectedRoute>
                 <MainLayout>

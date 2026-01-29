@@ -12,9 +12,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantStyles = {
       primary: 'bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700',
-      secondary: 'bg-warm-100 text-warm-800 hover:bg-warm-200 active:bg-warm-300 border border-warm-300',
+      secondary: 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200 active:bg-neutral-300 border border-neutral-300',
       danger: 'bg-accent-500 text-white hover:bg-accent-600 active:bg-accent-700',
-      ghost: 'bg-transparent text-warm-700 hover:bg-warm-100 active:bg-warm-200',
+      ghost: 'bg-transparent text-neutral-700 hover:bg-neutral-100 active:bg-neutral-200',
     }
 
     return (
